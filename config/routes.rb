@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   scope :api, module: :api, defaults: { format: :json } do
     resources :products, only: [:index]
-    resources :cart, only: [:index, :create, :destroy]
+    get 'cart', to: 'carts#index'
+    post 'cart', to: 'carts#create'
+    delete 'cart/:id', to: 'carts#destroy'
   end
 end
