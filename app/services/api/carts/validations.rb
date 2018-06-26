@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
-module Api::CartsService::Validations
+module Api::Carts::Validations
   private
 
-  def valid_params(action)
-    method_send("valid_params_#{action}?")
+  def valid_params?(action)
+    send("valid_params_#{action}?")
   end
 
   def valid_params_add?
-    return false if params_is_missing?(:product_id)
+    return false if param_is_missing?(:product_id)
     return false if not_number?(:product_id)
-    return false if params_is_missing?(:quantity)
+    return false if param_is_missing?(:quantity)
     return false if not_number?(:quantity)
     return false if product_not_exist?
     true
   end
 
   def valid_params_delete?
-    return false if params_is_missing?(:product_id)
+    return false if param_is_missing?(:product_id)
     return false if not_number?(:product_id)
     return false if product_not_exist?
     true
@@ -30,7 +30,6 @@ module Api::CartsService::Validations
         message: 'Specify a number',
         name: param_name
       )
-      true
     end
   end
 
@@ -41,7 +40,6 @@ module Api::CartsService::Validations
         message: 'Product with this is does not exist',
         action: action
       )
-      true
     end
   end
 
@@ -52,7 +50,6 @@ module Api::CartsService::Validations
         message: 'Product not in cart',
         action: action
       )
-      true
     end
   end
 
@@ -63,7 +60,6 @@ module Api::CartsService::Validations
         message: "#{param_name} cannot be blank.",
         name: param_name
       )
-      true
     end
   end
 
@@ -77,7 +73,7 @@ module Api::CartsService::Validations
     result = { params: [] }
     @errors.each { |e| result[:params] << e }
 
-    { 
+    {
       error: result,
       type: 'invalid_param_error',
       message: 'Invalid data parameters'

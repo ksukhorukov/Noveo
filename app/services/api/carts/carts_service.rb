@@ -3,17 +3,17 @@
 class Api::Carts::CartsService
   include Validations
 
-  attr_reader :params, :action
-  attr_accessor :product, :errors
+  attr_reader :params
+  attr_accessor :product, :errors, :action
 
-  def initialize(params = {}, action)
+  def initialize(params = {}, action = nil)
     @params = params
-    @action = action
     @errors = []
+    @action = action
   end
 
   def show
-    response(body: cart.products)
+    response(body: current_cart.products)
   end
 
   def add

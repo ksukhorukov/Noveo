@@ -5,17 +5,17 @@ class Api::CartsController < ApplicationController
 
   def index
     result, status = @service.show
-    render json: result, status
+    render json: result, status: status
   end
 
   def create
-    result, status = @service.add
-    render json: result, status: status
+    @service.add
+    head :ok
   end
 
   def destroy
-    result, status = @service.delete
-    render json: result, status: status
+    @service.delete
+    head :ok
   end
 
   def cart_params
