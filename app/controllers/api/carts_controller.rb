@@ -4,12 +4,13 @@ class Api::CartsController < ApplicationController
   before_action :init_service
 
   def index
-    render json: @service.show
+    result, status = @service.show
+    render json: result, status
   end
 
   def create
     result, status = @service.add
-    render json: body, status: status
+    render json: result, status: status
   end
 
   def destroy

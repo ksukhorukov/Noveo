@@ -36,7 +36,7 @@ module Api::CartsService::Validations
 
   def product_not_exist?
     unless current_product
-      product_error(
+      params_error(
         code: 'required',
         message: 'Product with this is does not exist',
         action: action
@@ -47,7 +47,7 @@ module Api::CartsService::Validations
 
   def product_not_in_cart?
     unless current_cart.product_in_cart?(current_product)
-      product_error(
+      params_error(
         code: 'required',
         message: 'Product not in cart',
         action: action
@@ -68,10 +68,19 @@ module Api::CartsService::Validations
   end
 
   def params_error(params)
-    errors << [params, :params_error]
+    @errors << params
   end
 
-  def product_error(params)
-    errors << [params, :product_error]
+  def form_error
+    return unless @errors.any?
+
+    result = { params: [] }
+    @errors.each { |e| result[:params] << e }
+
+    { 
+      error: result,
+      type: 'invalid_param_error',
+      message: 'Invalid data parameters'
+    }
   end
 end
