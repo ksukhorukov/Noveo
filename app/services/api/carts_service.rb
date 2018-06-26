@@ -17,14 +17,11 @@ class Api::Carts::CartsService
   end
 
   def add
-    return [format_errors, 400] if params_is_missing?(:product_id)
-    return [format_errors, 400] if params_is_missing?(:quantity)
-    return [format_errors, 400] if product_not_exist?
+    return [format_errors, 400] unless valid_params?(:add)
   end
 
   def delete
-    return [format_errors, 400] if params_is_missing?(:product_id)
-    return [format_errors, 400] if product_not_exist?
+    return [format_errors, 400] unless valid_params?(:delete)
   end
 
   private
