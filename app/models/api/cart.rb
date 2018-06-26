@@ -7,6 +7,14 @@ class Api::Cart < ApplicationRecord
   has_many :products, through: :carts_products
 
   def product_in_cart?(product)
-    ::Api::CartProduct.find_by(cart_id: id, product: product.id)
+    ::Api::CartProduct.find_by(cart_id: id, product_id: product.id)
+  end
+
+  def delete_from_cart(product)
+    ::Api::CartProduct.find_by(cart_id: id, product_id: product.id).delete
+  end
+
+  def add_to_cart(product)
+    ::Api::CartProduct.create(cart_id: id, product_id: product.id)
   end
 end
