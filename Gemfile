@@ -13,6 +13,7 @@ gem 'ffaker', '~> 2.9'
 
 
 group :development, :test do
+  gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
