@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::CartsController < ApplicationController
   before_action :init_service
 
@@ -22,6 +24,6 @@ class Api::CartsController < ApplicationController
   private
 
   def init_service
-    @service = ::Api::CartsService.new(cart_params)
+    @service = ::Api::CartsService.new(cart_params, action_name)
   end
 end
