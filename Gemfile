@@ -14,6 +14,8 @@ gem 'ffaker', '~> 2.9'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
+  gem 'factory_bot'
+  gem 'factory_bot_rails'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
