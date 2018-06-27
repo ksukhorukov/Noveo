@@ -4,11 +4,11 @@ RESTful API shopping cart. You can retrieve the list of available products from 
 
 Cart TTL is 5 minuts then it flushes.
 
-# Requirements
+## Requirements
 
 ruby 2.5.0
 
-# Install & Run
+## Install & Run
 
 $ cd noveo
 $ gem install bundler
@@ -16,11 +16,11 @@ $ bundle
 $ rake db:seed
 $ rails s
 
-# Run test suite
+## Run test suite
 
 $ rspec
 
-# Usage
+## Usage
 
 1) Get the list of products
 
@@ -72,4 +72,4 @@ $ curl http://localhost:3000/api/cart
 }
 ```
 
-# [EOF]
+## [EOF]
