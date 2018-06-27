@@ -13,7 +13,7 @@ class Api::Carts::CartsService
   end
 
   def show
-    response(body: current_cart.products)
+    response(body: current_cart)
   end
 
   def add

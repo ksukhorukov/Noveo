@@ -36,4 +36,20 @@ class Api::Cart < ApplicationRecord
       ::Api::CartProduct.create(cart_id: id, product_id: product.id, quantity: quantity)
     end
   end
+
+  def total_sum
+    joined_products.map { |p| p.quantity * p.product.price }.reduce(:+)
+  end
+
+  def joined_products
+    @joined_products ||= cart_products.includes(:product)
+  end
+
+  def products_quantity
+    @products_quantity ||= cart_products.sum(:quantity)
+  end
+
+  def cart_products
+    @cart_products ||= Api::CartProduct.where(cart_id: id)
+  end
 end

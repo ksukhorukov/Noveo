@@ -3,11 +3,7 @@
 class Api::CartsController < ApplicationController
   def index
     response, status = service.show
-    unless response
-      head :ok
-    else
-      render json: response, status: status
-    end
+    render json: response, status: status
   end
 
   def create
