@@ -3,12 +3,9 @@ class Api::CartSerializer < ActiveModel::Serializer
 
   def data
     {
-      data: {
-        total_sum: object.total_sum,
-        products_count: object.products_quantity,
-        products: products_in_cart
-      }
-
+      total_sum: object.total_sum,
+      products_count: object.products_quantity,
+      products: products_in_cart
     }
   end
 
