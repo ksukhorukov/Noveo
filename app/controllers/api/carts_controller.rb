@@ -1,21 +1,31 @@
 # frozen_string_literal: true
 
 class Api::CartsController < ApplicationController
-  before_action :init_service
-
   def index
-    response, status = @service.show
-    render json: response, status: status
+    response, status = service.show
+    unless response
+      head :ok
+    else
+      render json: response, status: status
+    end
   end
 
   def create
-    response, status = @service.add
-    render json: response, status: status
+    response, status = service.add
+    unless response
+      head :ok
+    else
+      render json: response, status: status
+    end
   end
 
   def destroy
-    response, status = @service.delete
-    render json: response, status: status
+    response, status = service.delete
+    unless response
+      head :ok
+    else
+      render json: response, status: status
+    end
   end
 
   def cart_params
@@ -24,7 +34,7 @@ class Api::CartsController < ApplicationController
 
   private
 
-  def init_service
-    @service = Api::Carts::CartsService.new(cart_params, action_name)
+  def service
+    @service ||= Api::Carts::CartsService.new(cart_params, action_name)
   end
 end

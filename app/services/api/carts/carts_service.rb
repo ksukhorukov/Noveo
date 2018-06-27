@@ -36,7 +36,7 @@ class Api::Carts::CartsService
   end
 
   def current_cart
-    Rails.cache.fetch(:cart, expires_in: 5.minutes) do
+    Rails.cache.fetch(:current_cart, expires_in: 5.minutes) do
       Api::Cart.create
     end
   end

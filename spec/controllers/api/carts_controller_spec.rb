@@ -22,7 +22,9 @@ describe Api::CartsController, type: :controller do
 
     it 'successfully deletes product from cart' do 
       product = FactoryBot.create(:product)
-      post :create, params: { product_id: product.id, quantity: 1 }
+      cart = FactoryBot.create(:cart)
+      cart.add_to_cart(product)
+      allow_any_instance_of(Api::Carts::CartsService).to receive(:current_cart).and_return(cart)
       delete :destroy, params: { product_id: product.id }
       expect(response.code).to eq('200')
     end

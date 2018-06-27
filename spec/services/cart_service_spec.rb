@@ -71,7 +71,7 @@ RSpec.describe Api::Carts::CartsService do
     end
 
     it 'checks that product with the given id exist when we add it to cart' do 
-      service = described_class.new({ product_id: rand(100).to_s, quantity: '1'})
+      service = described_class.new({ product_id: rand(100_000).to_s, quantity: '1'})
       result, status = service.add
       expect(status).to be_equal(400)
     end
