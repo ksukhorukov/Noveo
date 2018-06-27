@@ -4,18 +4,18 @@ class Api::CartsController < ApplicationController
   before_action :init_service
 
   def index
-    result, status = @service.show
-    render json: result, status: status
+    response, status = @service.show
+    render json: response, status: status
   end
 
   def create
-    @service.add
-    head :ok
+    response, status = @service.add
+    render json: response, status: status
   end
 
   def destroy
-    @service.delete
-    head :ok
+    response, status = @service.delete
+    render json: response, status: status
   end
 
   def cart_params
@@ -25,6 +25,6 @@ class Api::CartsController < ApplicationController
   private
 
   def init_service
-    @service = ::Api::CartsService.new(cart_params, action_name)
+    @service = Api::Carts::CartsService.new(cart_params, action_name)
   end
 end

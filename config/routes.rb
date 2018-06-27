@@ -3,6 +3,6 @@ Rails.application.routes.draw do
     resources :products, only: [:index]
     get 'cart', to: 'carts#index'
     post 'cart', to: 'carts#create'
-    delete 'cart/:id', to: 'carts#destroy'
+    delete 'cart/:product_id', to: 'carts#destroy'
   end
 end
