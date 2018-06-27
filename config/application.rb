@@ -31,5 +31,6 @@ module Noveo
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.eager_load_paths << Rails.root.join('app/services/carts')
+    config.exceptions_app = self.routes
   end
 end
