@@ -18,14 +18,15 @@ class Api::Carts::CartsService
 
   def add
     return response(status: :error) unless valid_params?(:add)
-    current_cart.add_to_cart(current_product)
+    current_cart.add_to_cart(current_product, params[:quantity])
     response
   end
 
   def delete
     return response(status: :error) unless valid_params?(:delete)
-    current_cart.delete_from_cart(current_product)
-    response
+    status = current_cart.delete_from_cart(current_product)
+    product_is_missing(product) if status == :error
+    response(status: status)
   end
 
   private

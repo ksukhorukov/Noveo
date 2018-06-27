@@ -11,10 +11,29 @@ class Api::Cart < ApplicationRecord
   end
 
   def delete_from_cart(product)
-    ::Api::CartProduct.find_by(cart_id: id, product_id: product.id).delete
+    product_in_cart = Api::CartProduct.find_by(cart_id: id, product_id: product.id)
+    if product_in_cart
+      current_quantity = product_in_cart.quantity
+      if current_quantity == 1
+        product_in_cart.destroy 
+      else
+        product_in_cart.quantity -= 1
+        product_in_cart.save
+      end
+      return :ok
+    else
+      return :error
+    end
   end
 
-  def add_to_cart(product)
-    ::Api::CartProduct.create(cart_id: id, product_id: product.id)
+  def add_to_cart(product, quantity = 1)
+    quantity = quantity.to_i
+    product_in_cart = Api::CartProduct.find_by(cart_id: id, product_id: product.id)
+    if product_in_cart.present?
+      product.quantity += quantity
+      product.save
+    else
+      ::Api::CartProduct.create(cart_id: id, product_id: product.id, quantity: quantity)
+    end
   end
 end

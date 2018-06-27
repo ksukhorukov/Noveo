@@ -63,6 +63,13 @@ module Api::Carts::Validations
     end
   end
 
+  def product_is_missing(product)
+    params_error(
+      code: 'required',
+      message: "There is no product with id #{product.id} in the cart"
+      )
+  end
+
   def params_error(params)
     @errors << params
   end
