@@ -37,7 +37,7 @@ module Api::Carts::Validations
     unless current_product
       params_error(
         code: 'required',
-        message: 'Product with this is does not exist',
+        message: 'Product with this id does not exist',
         action: action
       )
     end
