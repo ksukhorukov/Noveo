@@ -81,5 +81,14 @@ RSpec.describe Api::Carts::CartsService do
       result, status = service.delete
       expect(status).to be_equal(400)
     end
+
+    it 'no way to delete product that is not in cart' do 
+      product = FactoryBot.create(:product)
+      cart = FactoryBot.create(:cart)
+      service = described_class.new({ product_id: product.id.to_s})
+      allow(service).to receive(:current_cart).and_return(cart)
+      result, status = service.delete
+      expect(status).to be_equal(400)
+    end
   end
 end
